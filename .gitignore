@@ -1,28 +1,36 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
+# Files to ignore when considering what GIT should commit.
+
+# Visual Studio 
+*.suo
+*.sln.docstates
 *.obj
-
-# Precompiled Headers
-*.gch
 *.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
+*.tlog
+*.log
+*.scc
+*.exp
+*.ilk
+*.user
+*.ncb
+*.lastbuildstate
+vc100.pdb
+ipch
+*.sdf
+*.opensdf
+*.idb
 *.exe
-*.out
-*.app
+*.pdb
+*.v12
+*.pdb
+*.exe.config
+*.exe.manifest
+*.hg
+*.hgignore
+*.cache
+/.hg
+/obj
+/obj/Release
+/obj/Debug
+/bin/Debug
+/configs
+/Obsolete
