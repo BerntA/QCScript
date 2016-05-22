@@ -1,0 +1,18 @@
+"ShaderParameters"
+{
+    "shader" "None"
+    "shader" "LightmappedGeneric"
+    "shader" "LightmappedReflective"
+    "shader" "VertexLitGeneric"
+    "shader" "UnlitGeneric"
+    "shader" "UnlitTwoTexture"
+    "shader" "Subrect"
+    "shader" "DecalModulate"
+    "shader" "WorldTextureBlend"
+    "shader" "WorldVertexTransition"
+    "shader" "Water"
+    "shader" "Teeth"
+    "shader" "Eyeball"
+    "shader" "EyeRefract"
+    "shader" "Refract"
+}

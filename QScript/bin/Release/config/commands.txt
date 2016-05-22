@@ -1,0 +1,81 @@
+"QCCommands"
+{
+	"$cd" "$cd <pathToQCs>"
+	"$modelname" "$modelname <path>"
+
+	"$renamematerial" ""
+	"$cdmaterials" "$cdmaterials <pathToGameMaterials>"	
+	
+	"$body" ""
+	"$model" ""
+	
+	"$surfaceprop"
+	"$jointsurfaceprop"
+	"$contents" ""
+	
+	"$collisionmodel" "$collisionmodel"
+	"$collisionjoints" ""
+	
+	"$jigglebone" ""
+	
+	"$hbox" ""
+	"$hboxset" ""
+	
+	"$sequence" "$sequence idle idle.smd snap fps 30.00 activity ACT_IDLE 1"
+	"$animation" ""
+	"$declaresequence" ""
+	"$ikchain" ""
+	"$weightlist" ""
+	"$poseparameter" ""
+	"$proceduralbones" ""
+	"$append" ""
+	"$maxverts" ""
+	
+	"$root" ""
+	"$hierarchy" ""
+	"$definebone" ""
+	"$bonemerge" ""
+	"$animblocksize" ""
+	"$realignbones" ""
+	"$alwayscollapse" ""
+	
+	"$keyvalues" ""
+	"$include" ""
+	"$includemodel" ""
+	
+	"$scale" ""
+	"$autocenter" ""
+	"$upaxis" ""
+	"$pushd" ""
+	"$popd" ""
+	"$definemacro" ""
+	"$definevariable" ""
+	"$continue" ""
+	"$cmdlist" ""
+	"$centerbonesonvers" ""
+	
+	"$staticprop" ""
+	"$lod" ""
+	"$shadowlod" ""
+	"$collapsebones" ""
+	"$opaque" ""
+	"$mostlyopaque" ""
+	"$sectionframes" ""
+	"$noforcefade" ""
+	
+	"$illumposition" ""
+	"$constantdirectionallight" ""
+	"$ambientboost" ""
+	
+	"$eyeposition" ""
+	
+	"$attachment" ""
+	"$origin" ""
+	"$collisiontext" ""
+	
+	"$group" ""
+	"$ikchain" ""
+	"$insertbone" ""
+	
+	"event" "event <event name> <frame num> <options>"
+}

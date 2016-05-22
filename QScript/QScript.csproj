@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{685A3350-0287-43E8-849A-65A990F32993}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QScript</RootNamespace>
+    <AssemblyName>QScript</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>QScript.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\CommandList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CommandList.Designer.cs">
+      <DependentUpon>CommandList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditorContext.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\EditorContext.Designer.cs">
+      <DependentUpon>EditorContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\HoverButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\HoverButton.Designer.cs">
+      <DependentUpon>HoverButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PixelAnimatedButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PixelAnimatedButton.Designer.cs">
+      <DependentUpon>PixelAnimatedButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RichQCEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\RichQCEditor.Designer.cs">
+      <DependentUpon>RichQCEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\CommandLineUtils.cs" />
+    <Compile Include="Core\CompilerUtils.cs" />
+    <Compile Include="Core\Events.cs" />
+    <Compile Include="Core\Filter.cs" />
+    <Compile Include="Core\Globals.cs" />
+    <Compile Include="Core\LoggingUtils.cs" />
+    <Compile Include="Core\ProjectUtils.cs" />
+    <Compile Include="Core\WindowHandler.cs" />
+    <Compile Include="Filesystem\KeyValues.cs" />
+    <Compile Include="Filesystem\KeyValuesUtils.cs" />
+    <Compile Include="Filesystem\QCParser.cs" />
+    <Compile Include="Filesystem\SMDParser.cs" />
+    <Compile Include="Filesystem\VMTWriter.cs" />
+    <Compile Include="GUI\AboutInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\AboutInfoForm.Designer.cs">
+      <DependentUpon>AboutInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\AnimationReversionToolWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\AnimationReversionToolWizard.Designer.cs">
+      <DependentUpon>AnimationReversionToolWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\BorderlessFormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\DirectoryCleanupToolWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\DirectoryCleanupToolWizard.Designer.cs">
+      <DependentUpon>DirectoryCleanupToolWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\InfoDialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\InfoDialogForm.Designer.cs">
+      <DependentUpon>InfoDialogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\NewFileWizardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\NewFileWizardForm.Designer.cs">
+      <DependentUpon>NewFileWizardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\NewFilterWizardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\NewFilterWizardForm.Designer.cs">
+      <DependentUpon>NewFilterWizardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ProjectSettingsWizardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ProjectSettingsWizardForm.Designer.cs">
+      <DependentUpon>ProjectSettingsWizardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ProjectWizardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ProjectWizardForm.Designer.cs">
+      <DependentUpon>ProjectWizardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\VMTGeneratorToolWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\VMTGeneratorToolWizard.Designer.cs">
+      <DependentUpon>VMTGeneratorToolWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\CommandList.resx">
+      <DependentUpon>CommandList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\EditorContext.resx">
+      <DependentUpon>EditorContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\HoverButton.resx">
+      <DependentUpon>HoverButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PixelAnimatedButton.resx">
+      <DependentUpon>PixelAnimatedButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\RichQCEditor.resx">
+      <DependentUpon>RichQCEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\AboutInfoForm.resx">
+      <DependentUpon>AboutInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\AnimationReversionToolWizard.resx">
+      <DependentUpon>AnimationReversionToolWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\BorderlessFormBase.resx">
+      <DependentUpon>BorderlessFormBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\DirectoryCleanupToolWizard.resx">
+      <DependentUpon>DirectoryCleanupToolWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\InfoDialogForm.resx">
+      <DependentUpon>InfoDialogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\NewFileWizardForm.resx">
+      <DependentUpon>NewFileWizardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\NewFilterWizardForm.resx">
+      <DependentUpon>NewFilterWizardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ProjectSettingsWizardForm.resx">
+      <DependentUpon>ProjectSettingsWizardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ProjectWizardForm.resx">
+      <DependentUpon>ProjectWizardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\VMTGeneratorToolWizard.resx">
+      <DependentUpon>VMTGeneratorToolWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_removefolder.png" />
+    <None Include="Resources\icon_filedel.png" />
+    <None Include="Resources\compiling.gif" />
+    <None Include="Resources\icon_compile.png" />
+    <None Include="Resources\icon_project.png" />
+    <None Include="Resources\icon_openproject.png" />
+    <None Include="Resources\icon_newproject.png" />
+    <None Include="Resources\icon_save.png" />
+    <None Include="Resources\icon_addfile.png" />
+    <None Include="Resources\icon_file.png" />
+    <None Include="Resources\icon_settings1.png" />
+    <None Include="Resources\icon_build.png" />
+    <None Include="Resources\icon_tools.png" />
+    <None Include="Resources\icon_reverse.png" />
+    <None Include="Resources\icon_gen.png" />
+    <None Include="Resources\icon_settings.png" />
+    <None Include="Resources\icon_closefile.png" />
+    <None Include="Resources\icon_tab.png" />
+    <None Include="Resources\icon_about.png" />
+    <None Include="Resources\icon_online1.png" />
+    <None Include="Resources\icon_online.png" />
+    <None Include="Resources\icon_help.png" />
+    <Content Include="logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
