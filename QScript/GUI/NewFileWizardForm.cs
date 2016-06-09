@@ -5,6 +5,7 @@
 //==================================================================//
 
 using QScript.Core;
+using QScript.Filesystem;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,7 +35,7 @@ namespace QScript.GUI
         private string GetFilePath(string desc)
         {
             string path = null;
-             
+
             using (OpenFileDialog fileDialog = new OpenFileDialog())
             {
                 fileDialog.AddExtension = true;
@@ -43,7 +44,7 @@ namespace QScript.GUI
                 fileDialog.Filter = "QC files (*.qc, *.qci) | *.qc; *.qci";
                 fileDialog.FilterIndex = 1;
                 fileDialog.ValidateNames = true;
-                fileDialog.InitialDirectory = ProjectUtils.GetProjectDirectory();
+                fileDialog.InitialDirectory = Globals.GetImportPath();
                 fileDialog.Title = desc;
                 var dialog = fileDialog.ShowDialog(this);
                 if (dialog == System.Windows.Forms.DialogResult.OK)
@@ -59,15 +60,18 @@ namespace QScript.GUI
             string path = fileName;
             if (File.Exists(fileName))
             {
-               path = string.Format("{0}\\{1}", _filter.GetFilterDirectory(), Path.GetFileName(fileName)); 
- 
-                try
+                path = string.Format("{0}\\{1}", _filter.GetFilterDirectory(), Path.GetFileName(fileName));
+                QCParser importedQC = new QCParser(fileName);
+                if (!importedQC.ImportDependenciesToPath(string.Format("{0}\\{1}", ProjectUtils.GetProjectDirectory(), Path.GetDirectoryName(path))))
                 {
-                    File.Copy(fileName, string.Format("{0}\\{1}", ProjectUtils.GetProjectDirectory(), path), true);
-                }
-                catch
-                {
-                    LoggingUtils.LogEvent("Failed to import a file!");
+                    try
+                    {
+                        File.Copy(fileName, string.Format("{0}\\{1}", ProjectUtils.GetProjectDirectory(), path), true);
+                    }
+                    catch
+                    {
+                        LoggingUtils.LogEvent("Failed to import a file!");
+                    }
                 }
             }
             else
@@ -75,7 +79,7 @@ namespace QScript.GUI
                 if (!Globals.IsStringValid(fileName))
                     return;
 
-                path = string.Format("{0}\\{1}", _filter.GetFilterDirectory(), fileName);             
+                path = string.Format("{0}\\{1}", _filter.GetFilterDirectory(), fileName);
             }
 
             if (!fileName.EndsWith(".qc", StringComparison.InvariantCultureIgnoreCase) && !fileName.EndsWith(".qci", StringComparison.InvariantCultureIgnoreCase))
@@ -111,7 +115,12 @@ namespace QScript.GUI
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            textBoxName.Text = GetFilePath("Import QC or QCI file");
+            string path = textBoxName.Text = GetFilePath("Import QC or QCI file");
+            if (!string.IsNullOrEmpty(path))
+            {
+                Properties.Settings.Default.lastImportPath = path;
+                Properties.Settings.Default.Save();
+            }
         }
     }
 }

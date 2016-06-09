@@ -4,6 +4,7 @@
 //
 //==================================================================//
 
+using QScript.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,16 +36,19 @@ namespace QScript.Filesystem
         private string _qcContent;
         private bool _bHasParsedSuccessfully;
         private List<QCKeyValues> _params;
+        private List<string> _dependentFiles;
         public QCParser(string path)
         {
             _path = path;
             _params = new List<QCKeyValues>();
+            _dependentFiles = new List<string>();
         }
 
-        public bool ParseQCFile()
+        public bool ParseQCFile(bool bImport = false)
         {
             _bHasParsedSuccessfully = false;
             _params.Clear();
+            _dependentFiles.Clear();
             _qcContent = null;
 
             if (!File.Exists(_path))
@@ -54,6 +58,7 @@ namespace QScript.Filesystem
             if ((info.Extension != ".qc") && (info.Extension != ".qci"))
                 return false;
 
+            string qcName = Path.GetFileNameWithoutExtension(_path);
             string localContent = null;
             using (StreamReader reader = new StreamReader(_path))
             {
@@ -66,12 +71,49 @@ namespace QScript.Filesystem
                         string value = GetKeyValue(line, "$include ");
                         if (!File.Exists(value))
                             line = string.Format("$include \"{0}\\{1}\"", Path.GetDirectoryName(_path), value);
+
+                        if (bImport)
+                        {
+                            string absPath = string.Format("{0}\\{1}", Path.GetDirectoryName(_path), value);
+                            if (File.Exists(absPath))
+                                _dependentFiles.Add(absPath.Replace("/", "\\"));
+                        }
                     }
-                    else if (line.Contains("$includemodel "))
+
+                    if (bImport)
                     {
-                        string value = GetKeyValue(line, "$includemodel ");
-                        if (!File.Exists(value))
-                            line = string.Format("$includemodel \"{0}\\{1}\"", Path.GetDirectoryName(_path), value);
+                        if (line.Contains("$body ") || line.Contains("$model ") || line.Contains("replacemodel "))
+                        {
+                            int lastQuote = line.LastIndexOf("\"");
+                            int previousQuote = line.LastIndexOf("\"", lastQuote - 1);
+
+                            string rawValue = line.Substring(previousQuote, (lastQuote - previousQuote + 1));
+                            string value = rawValue.ToLower().Replace("\"", "").Replace(".smd", "");
+
+                            string absPath = string.Format("{0}\\{1}.smd", Path.GetDirectoryName(_path), value);
+                            if (File.Exists(absPath))
+                                _dependentFiles.Add(absPath.Replace("/", "\\"));
+
+                            line = line.Remove(previousQuote, rawValue.Length).Insert(previousQuote, string.Format("\"{0}/{1}.smd\"", qcName, value));
+                        }
+
+                        if (line.Contains("$sequence ") || line.Contains("$animation "))
+                        {
+                            string animType = (line.Contains("$sequence ") ? "$sequence " : "$animation ");
+
+                            int startIndex = line.IndexOf(animType) + animType.Length;
+                            int nextIndex = line.IndexOf(" ", startIndex) + 1;
+                            int endIndex = line.IndexOf(" ", nextIndex);
+
+                            string rawValue = line.Substring(nextIndex, (endIndex - nextIndex));
+                            string value = line.ToLower().Substring(nextIndex, (endIndex - nextIndex)).Replace("\"", "").Replace(".smd", "");
+                            string absPath = string.Format("{0}\\{1}.smd", Path.GetDirectoryName(_path), value);
+
+                            if (File.Exists(absPath))
+                                _dependentFiles.Add(absPath.Replace("/", "\\"));
+
+                            line = line.Remove(nextIndex, rawValue.Length).Insert(nextIndex, string.Format("\"{0}/{1}.smd\"", qcName, value));
+                        }
                     }
 
                     if (!line.Contains("$cd "))
@@ -96,6 +138,9 @@ namespace QScript.Filesystem
             }
 
             _qcContent = string.Format("$cd \"{0}\"\n{1}\n", Path.GetDirectoryName(_path), localContent);
+            if (bImport)
+                _qcContent = string.Format("{0}\n", localContent);
+
             _bHasParsedSuccessfully = true;
             return true;
         }
@@ -112,6 +157,39 @@ namespace QScript.Filesystem
             }
 
             return null;
+        }
+
+        public bool ImportDependenciesToPath(string path)
+        {
+            if (!ParseQCFile(true))
+                return false;
+
+            if (_dependentFiles.Count() <= 0)
+                return false;         
+
+            try
+            {
+                string qcDir = Path.GetDirectoryName(_path);
+                string relativeSubDir = Path.GetFileNameWithoutExtension(_path);
+                for (int i = 0; i < _dependentFiles.Count(); i++)
+                {
+                    string source = _dependentFiles[i];
+                    string relativePath = Path.GetDirectoryName(source.Replace(qcDir, ""));
+                    string outputFile = string.Format("{0}\\{1}{2}\\{3}", path, relativeSubDir, relativePath, Path.GetFileName(source));
+
+                    Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
+                    File.Copy(source, outputFile, true);
+                }
+
+                File.WriteAllText(string.Format("{0}\\{1}", path, Path.GetFileName(_path)), GetQCContent(), Encoding.ASCII);
+            }
+            catch
+            {
+                LoggingUtils.LogEvent(string.Format("Unable to import anims, includes and references for QC {0} at path {1}!", Path.GetFileName(_path), Path.GetDirectoryName(_path)));
+                return false;
+            }
+
+            return true;
         }
 
         private string GetKeyValue(string line, string param)

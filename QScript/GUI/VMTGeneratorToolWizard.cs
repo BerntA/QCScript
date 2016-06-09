@@ -61,7 +61,7 @@ namespace QScript.GUI
             using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
             {
                 folderDialog.RootFolder = Environment.SpecialFolder.MyComputer;
-                folderDialog.SelectedPath = Properties.Settings.Default.lastVMTPath;
+                folderDialog.SelectedPath = Globals.GetVMTPath();
                 folderDialog.ShowNewFolderButton = true;
                 folderDialog.Description = desc;
                 var dialog = folderDialog.ShowDialog(this);

@@ -61,6 +61,24 @@ namespace QScript.Core
             return value;
         }
 
+        public static string GetVMTPath()
+        {
+            string path = Properties.Settings.Default.lastVMTPath;
+            if (string.IsNullOrEmpty(path) && ProjectUtils.IsProjectLoaded())
+                return ProjectUtils.GetGameInfoPath();
+
+            return path;
+        }
+
+        public static string GetImportPath()
+        {
+            string path = Properties.Settings.Default.lastImportPath;
+            if (string.IsNullOrEmpty(path))
+                return ProjectUtils.GetProjectDirectory();
+
+            return path;
+        }
+
         public static bool OpenModelInHLMV(string path)
         {
             if (string.IsNullOrEmpty(path) || !ProjectUtils.IsProjectLoaded())

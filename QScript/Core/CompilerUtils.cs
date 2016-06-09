@@ -124,6 +124,8 @@ namespace QScript.Core
             {
                 content = qcFile.GetQCContent();
                 _mdlName = qcFile.GetQCParamValue("$modelname");
+                if (string.IsNullOrEmpty(_mdlName))
+                    _mdlName = Path.GetFileName(path);
             }
 
             _path = string.Format("{0}\\temp\\compile.qc", ProjectUtils.GetProjectDirectory());

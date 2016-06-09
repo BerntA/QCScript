@@ -46,5 +46,17 @@ namespace QScript.Properties {
                 this["lastProjectPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string lastImportPath {
+            get {
+                return ((string)(this["lastImportPath"]));
+            }
+            set {
+                this["lastImportPath"] = value;
+            }
+        }
     }
 }
